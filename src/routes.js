@@ -1,0 +1,24 @@
+import React from 'react';
+import $ from 'jquery';
+
+window.jQuery = $;
+window.$ = $;
+global.jQuery = $;
+
+const DashboardDefault = React.lazy(() => import('./Demo/Dashboard/Default'));
+
+
+const FormsElements = React.lazy(() => import('./Demo/Forms/FormsElements'));
+
+const BootstrapTable = React.lazy(() => import('./Demo/Tables/BootstrapTable'));
+
+const OtherSamplePage = React.lazy(() => import('./Demo/Other/SamplePage'));
+
+const routes = [
+    { path: '/dashboard/default', exact: true, name: 'Default', component: DashboardDefault },
+    { path: '/forms/form-basic', exact: true, name: 'Forms Elements', component: FormsElements },
+    { path: '/tables/bootstrap', exact: true, name: 'Bootstrap Table', component: BootstrapTable },
+    { path: '/sample-page', exact: true, name: 'Sample Page', component: OtherSamplePage },
+];
+
+export default routes;
