@@ -120,6 +120,7 @@ const getUnrealizedGainByUserId = async (id) => {
     return response;
 };
 
+
 const postService = {
   getAvailableStocks,
   register,
