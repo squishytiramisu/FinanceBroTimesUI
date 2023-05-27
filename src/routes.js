@@ -14,11 +14,15 @@ const BootstrapTable = React.lazy(() => import('./Demo/Tables/BootstrapTable'));
 
 const OtherSamplePage = React.lazy(() => import('./Demo/Other/SamplePage'));
 
+const ProfilePage = React.lazy(() => import('./Demo/Profilepage/ProfilePage'));
+
 const routes = [
     { path: '/dashboard/default', exact: true, name: 'Default', component: DashboardDefault },
     { path: '/forms/form-basic', exact: true, name: 'Forms Elements', component: FormsElements },
     { path: '/tables/bootstrap', exact: true, name: 'Bootstrap Table', component: BootstrapTable },
     { path: '/sample-page', exact: true, name: 'Sample Page', component: OtherSamplePage },
+    { path: '/profile', exact: true, name: 'Profile', component: ProfilePage },
+    
 ];
 
 export default routes;

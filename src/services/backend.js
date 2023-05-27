@@ -19,6 +19,7 @@ const register = async (username, email, password) =>  {
     window.localStorage.setItem("token", response.data.access_token);
     window.localStorage.setItem("username", username);
     
+    
     return response
 };
 
