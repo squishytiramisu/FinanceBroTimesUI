@@ -78,7 +78,7 @@ const getCurrentPortfolioByEmail = async (email) => {
 
 const addStockToPortfolio = async (stock,quantity) => {
     let token = window.localStorage.getItem("token");
-    let response = await axios.post(API_URL + "api/portfolio/addStockToUserPortfolio", {stockSymbol: stock, "quantity": quantity}, { headers: {Authorization: `Bearer ${token}`} });
+    let response = await axios.post(API_URL + "api/portfolio/addStockToUserPortfolio", {stockSymbol: stock, quantity: quantity}, { headers: {Authorization: `Bearer ${token}`} });
     return response;
 };
 
@@ -107,6 +107,12 @@ const sendMail = (id) => {
 };
 
 
+const getAllStocksWithPrices = () => {
+    let token = window.localStorage.getItem("token");
+    return axios.get(API_URL + "api/portfolio/getAllStocksWithPrices", { headers: {Authorization: `Bearer ${token}`} });
+};
+
+
 const postService = {
   getAvailableStocks,
   register,
@@ -124,6 +130,8 @@ const postService = {
   closeEntirePortfolioByUserId,
   getRealizedGainByUserId,
   sendMail,
+  getAllStocksWithPrices
+
 };
 
 export default postService;

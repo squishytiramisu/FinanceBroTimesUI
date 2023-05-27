@@ -10,6 +10,18 @@ const BootstrapTable = () =>{
     const [stocks, setStocks] = React.useState([]);
 
 
+    const buyStock = (stockSymbol) => {
+        let quantity = document.getElementById(`i-quantity-${stockSymbol}`).value;
+        PostService.addStockToPortfolio(stockSymbol,quantity).then(
+            (response) => {
+                console.log(response.data);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+
     React.useEffect(() => {
 
         if(window.localStorage.getItem("username") === null){
@@ -17,7 +29,7 @@ const BootstrapTable = () =>{
         }
 
 
-        PostService.getAllStocks().then(
+        PostService.getAllStocksWithPrices().then(
             (response) => {
                 console.log(response.data);
                 setStocks(response.data);
@@ -38,9 +50,10 @@ const BootstrapTable = () =>{
                         <Card>
                             <Card.Header>
                                 <Card.Title as="h5">Available stocks</Card.Title>
+                                <span className="d-block m-t-5">Always trade responsibly!</span>
                             </Card.Header>
                             <Card.Body>
-                                <Table responsive>
+                                <Table responsive hover>
                                     <thead>
                                     <tr>
                                         <th>#</th>
@@ -51,12 +64,13 @@ const BootstrapTable = () =>{
                                     </thead>
                                     <tbody>
                                     {stocks.map((stock, index) => (
-                                        <tr key={stock.id}>
+                                        <tr key={index}>
                                             <th scope="row">{index+1}</th>
-                                            <td>{stock.stockSymbol}</td>
-                                            <td>{stock.currentPrice}</td>
+                                            <td><bold>{stock.stockSymbol}</bold></td>
+                                            <td><bold>{stock.price}$</bold></td>
                                             <td>
-                                                <button className="btn btn-primary shadow-2 mb-4" onClick={()=> console.log("buy",stock.id)}>Buy</button>
+                                                <button className="btn btn-primary shadow-2 mb-4"  id={`i-name-${stock.stockSymbol}`} onClick={()=> buyStock(stock.stockSymbol)}>Buy</button>
+                                                <input type="number" id={`i-quantity-${stock.stockSymbol}`} className="form-control" placeholder="Amount"/>
                                             </td>
                                         </tr>
                                     ))}
@@ -64,82 +78,7 @@ const BootstrapTable = () =>{
                                 </Table>
                             </Card.Body>
                         </Card>
-                        <Card>
-                            <Card.Header>
-                                <Card.Title as="h5">Hover Table</Card.Title>
-                                <span className="d-block m-t-5">use props <code>hover</code> with <code>Table</code> component</span>
-                            </Card.Header>
-                            <Card.Body>
-                                <Table responsive hover>
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    </tbody>
-                                </Table>
-                            </Card.Body>
-                        </Card>
-                        <Card>
-                            <Card.Header>
-                                <Card.Title as="h5">Striped Table</Card.Title>
-                                <span className="d-block m-t-5">use props <code>striped</code> with <code>Table</code> component</span>
-                            </Card.Header>
-                            <Card.Body>
-                                <Table striped responsive>
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    </tbody>
-                                </Table>
-                            </Card.Body>
-                        </Card>
+                        
                     </Col>
                 </Row>
             </Aux>
