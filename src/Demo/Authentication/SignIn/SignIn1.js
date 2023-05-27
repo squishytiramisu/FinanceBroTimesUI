@@ -5,8 +5,29 @@ import './../../../assets/scss/style.scss';
 import Aux from "../../../hoc/_Aux";
 import Breadcrumb from "../../../App/layout/AdminLayout/Breadcrumb";
 
-class SignUp1 extends React.Component {
-    render () {
+import PostService from '../../../services/backend';
+
+const SignIn1 = () => {
+
+    const [error, setError] = React.useState(false);
+
+    const signIn = () => {
+        let email = document.getElementById("i-email").value;
+        let password = document.getElementById("i-password").value;
+        PostService.login(email,password).then(
+            (response) => {
+                console.log(response.data);
+                window.localStorage.setItem("token", response.data.access_token);
+                window.localStorage.setItem("username", response.data.username);
+                window.location.href = "/dashboard/default"
+            },
+            (error) => {
+                setError(true);
+            }
+        );
+    }
+
+
         return(
             <Aux>
                 <Breadcrumb/>
@@ -25,19 +46,13 @@ class SignUp1 extends React.Component {
                                 </div>
                                 <h3 className="mb-4">Login</h3>
                                 <div className="input-group mb-3">
-                                    <input type="email" className="form-control" placeholder="Email"/>
+                                    <input type="email" id="i-email" className="form-control" placeholder="Email"/>
                                 </div>
                                 <div className="input-group mb-4">
-                                    <input type="password" className="form-control" placeholder="password"/>
+                                    <input type="password" id="i-password" className="form-control" placeholder="password"/>
                                 </div>
-                                <div className="form-group text-left">
-                                    <div className="checkbox checkbox-fill d-inline">
-                                        <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" />
-                                            <label htmlFor="checkbox-fill-a1" className="cr"> Save credentials</label>
-                                    </div>
-                                </div>
-                                <button className="btn btn-primary shadow-2 mb-4">Login</button>
-                                <p className="mb-2 text-muted">Forgot password? <NavLink to="/auth/reset-password-1">Reset</NavLink></p>
+                                {error===true ? <p className="mb-0 text-muted">Wrong email or password</p>: null}
+                                <button className="btn btn-primary shadow-2 mb-4" onClick={()=>signIn()}>Login</button>
                                 <p className="mb-0 text-muted">Don’t have an account? <NavLink to="/auth/signup-1">Signup</NavLink></p>
                             </div>
                         </div>
@@ -45,7 +60,6 @@ class SignUp1 extends React.Component {
                 </div>
             </Aux>
         );
-    }
 }
 
-export default SignUp1;
+export default SignIn1;

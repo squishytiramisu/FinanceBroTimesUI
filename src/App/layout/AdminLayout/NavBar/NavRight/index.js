@@ -4,11 +4,25 @@ import {Dropdown} from 'react-bootstrap';
 import Aux from "../../../../../hoc/_Aux";
 import DEMO from "../../../../../store/constant";
 
+import PostService from '../../../../../services/backend';
 
 class NavRight extends Component {
     state = {
         listOpen: false
     };
+
+    logout = () => {
+        PostService.logout().then(
+            (response) => {
+                console.log(response.data);
+                window.location.href = "/auth/signin-1"
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+
 
     render() {
 
@@ -22,10 +36,10 @@ class NavRight extends Component {
                             </Dropdown.Toggle>
                             <Dropdown.Menu alignRight className="profile-notification">
                                 <div className="pro-head">
-                                    <span>John Doe</span>
-                                    <a href={DEMO.BLANK_LINK} className="dud-logout" title="Logout">
+                                    <span>{window.localStorage.getItem("username")?window.localStorage.getItem("username"):null }</span>
+                                    <button onClick={()=>this.logout()}>
                                         <i className="feather icon-log-out"/>
-                                    </a>
+                                    </button>
                                 </div>
                                 <ul className="pro-body">
                                     <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-user"/> Profile</a></li>

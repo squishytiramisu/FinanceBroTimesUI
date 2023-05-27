@@ -6,8 +6,28 @@ import Aux from "../../../hoc/_Aux";
 import Breadcrumb from "../../../App/layout/AdminLayout/Breadcrumb";
 import DEMO from "../../../store/constant";
 
-class SignUp1 extends React.Component {
-    render () {
+import PostService from '../../../services/backend';
+
+const SignUp1 = () =>{
+
+    const signUp = () => {
+        let username = document.getElementById("i-username").value;
+        let email = document.getElementById("i-email").value;
+        let password = document.getElementById("i-password").value;
+
+
+        PostService.register(username,email,password).then(
+            (response) => {
+                console.log(response.data);
+                window.location.href = "/dashboard/default"
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+
+
         return(
             <Aux>
                 <Breadcrumb/>
@@ -26,21 +46,15 @@ class SignUp1 extends React.Component {
                                 </div>
                                 <h3 className="mb-4">Sign up</h3>
                                 <div className="input-group mb-3">
-                                    <input type="text" className="form-control" placeholder="Username"/>
+                                    <input type="text" id="i-username" className="form-control" placeholder="Username"/>
                                 </div>
                                 <div className="input-group mb-3">
-                                    <input type="email" className="form-control" placeholder="Email"/>
+                                    <input type="email"  id="i-email" className="form-control" placeholder="Email"/>
                                 </div>
                                 <div className="input-group mb-4">
-                                    <input type="password" className="form-control" placeholder="password"/>
+                                    <input type="password" id="i-password" className="form-control" placeholder="password"/>
                                 </div>
-                                <div className="form-group text-left">
-                                    <div className="checkbox checkbox-fill d-inline">
-                                        <input type="checkbox" name="checkbox-fill-2" id="checkbox-fill-2"/>
-                                            <label htmlFor="checkbox-fill-2" className="cr">Send me the <a href={DEMO.BLANK_LINK}> Newsletter</a> weekly.</label>
-                                    </div>
-                                </div>
-                                <button className="btn btn-primary shadow-2 mb-4">Sign up</button>
+                                <button className="btn btn-primary shadow-2 mb-4" onClick={() => signUp()}>Sign up</button>
                                 <p className="mb-0 text-muted">Allready have an account? <NavLink to="/auth/signin-1">Login</NavLink></p>
                             </div>
                         </div>
@@ -48,7 +62,6 @@ class SignUp1 extends React.Component {
                 </div>
             </Aux>
         );
-    }
 }
 
 export default SignUp1;

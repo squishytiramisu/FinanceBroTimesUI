@@ -21,12 +21,6 @@ const Dashboard = () => {
             console.log(error);
           }
         );
-
-        PostService.register("test1","test1","test1").then(
-            (response) => {
-                console.log(response.data);
-                }
-        ).catch((error) => { console.log(error)});
       }, []);
 
         const tabContent = (

@@ -41,6 +41,21 @@ const deletePost = async (id) => {
     return respone;
 };
 
+const login = async (email, password) => {
+    let response = await axios.post(API_URL + "api/v1/auth/authenticate", {"email": email, "password": password});
+    window.localStorage.setItem("token", response.data.access_token);
+    window.localStorage.setItem("username", response.data.username);
+    return response;
+};
+
+
+const logout = async () => {
+  let token = window.localStorage.getItem("token");
+    let response = await axios.post(API_URL + "api/blog/logout", null, { headers: {Authorization: `Bearer ${token}`} });
+    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("username");
+    return response;
+};
 
 const postService = {
   getAllPublicPosts,
@@ -49,6 +64,8 @@ const postService = {
   likePost,
   addPost,
   deletePost,
+  login,
+  logout
 };
 
 export default postService;

@@ -75,6 +75,9 @@ const SamplePage = () => {
     }
 
     useEffect(() => {
+        if(window.localStorage.getItem("token") === null){
+            window.location.href = "/auth/signin-1";
+        }
         PostService.getAllPosts().then(
             (response) => {
                 console.log(response.data);
@@ -82,6 +85,7 @@ const SamplePage = () => {
             },
             (error) => {
                 console.log(error);
+                window.location.href = "/auth/signin-1";
             }
         );
     }, []);
