@@ -16,9 +16,17 @@ const SignIn1 = () => {
         let password = document.getElementById("i-password").value;
         PostService.login(email,password).then(
             (response) => {
-                console.log(response.data);
                 window.localStorage.setItem("token", response.data.access_token);
-                window.localStorage.setItem("username", response.data.username);
+                PostService.whoAmi().then(
+                    (response) => {
+                        console.log(response.data);
+                        window.localStorage.setItem("username", response.data.username);
+                        window.localStorage.setItem("id", response.data.userId);
+                        window.localStorage.setItem("email", response.data.email);
+                    },(error) => {
+                        console.log(error);
+                    }
+                );
                 window.location.href = "/dashboard/default"
             },
             (error) => {

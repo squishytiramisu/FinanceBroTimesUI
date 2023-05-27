@@ -13,12 +13,17 @@ import avatar3 from '../../assets/images/user/avatar-3.jpg';
 
 const Dashboard = () => {
     useEffect(() => {
+        if(window.localStorage.getItem("token") === null){
+            window.location.href = "/auth/signin-1";
+        }
+
         PostService.getAllPublicPosts().then(
           (response) => {
             console.log(response.data);
           },
           (error) => {
             console.log(error);
+            window.location.href = "/auth/signin-1";
           }
         );
       }, []);

@@ -57,6 +57,11 @@ const logout = async () => {
     return response;
 };
 
+const whoAmi = async () => {
+    let token = window.localStorage.getItem("token");
+    let response = await axios.get(API_URL + "api/blog/whoAmi", { headers: {Authorization: `Bearer ${token}`} });
+    return response;
+};
 const postService = {
   getAllPublicPosts,
   register,
@@ -65,7 +70,8 @@ const postService = {
   addPost,
   deletePost,
   login,
-  logout
+  logout,
+  whoAmi,
 };
 
 export default postService;
