@@ -54,6 +54,25 @@ const SamplePage = () => {
         );
     }
 
+    const deletePost = (id) => {
+        PostService.deletePost(id).then(
+            (response) => {
+                console.log(response.data);
+                PostService.getAllPosts().then(
+                    (response) => {
+                        console.log(response.data);
+                        setPosts(response.data);
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                );
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
 
     useEffect(() => {
         PostService.getAllPosts().then(
@@ -102,7 +121,7 @@ const SamplePage = () => {
                                     <Button size={'sm'} variant="primary" onClick={() => postLike(post.id)}>
                                         Like
                                     </Button>
-
+                                    {post.author === window.localStorage.getItem("username") ? <Button size={'sm'} variant="btn btn-danger" onClick={() => deletePost(post.id)}> Delete </Button> : null}
                                 </Card2>
                             </Col>
                         </Row>

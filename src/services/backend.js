@@ -17,6 +17,8 @@ const getAllPosts = () => {
 const register = async (username, email, password) =>  {
     let response =  await axios.post(API_URL + "api/v1/auth/register", {"username": username, "email": email, "password": password});
     window.localStorage.setItem("token", response.data.access_token);
+    window.localStorage.setItem("username", username);
+    
     return response
 };
 
@@ -33,12 +35,20 @@ const addPost = async (title, content) => {
 };
 
 
+const deletePost = async (id) => {
+    let token = window.localStorage.getItem("token");
+    let respone = await axios.post(API_URL + "api/blog/deleteBlogPost", {"blogPostId": id}, { headers: {Authorization: `Bearer ${token}`} });
+    return respone;
+};
+
+
 const postService = {
   getAllPublicPosts,
   register,
   getAllPosts,
   likePost,
   addPost,
+  deletePost,
 };
 
 export default postService;
