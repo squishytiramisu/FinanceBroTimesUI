@@ -17,7 +17,7 @@ const Dashboard = () => {
             window.location.href = "/auth/signin-1";
         }
 
-        PostService.getAllPublicPosts().then(
+        PostService.getAvailableStocks().then(
           (response) => {
             console.log(response.data);
           },

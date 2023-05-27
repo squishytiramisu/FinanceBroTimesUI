@@ -4,7 +4,7 @@ const API_URL = "http://localhost:8080/";
 
 
 
-const getAllPublicPosts = () => {
+const getAvailableStocks = () => {
     let token = window.localStorage.getItem("token");
     return axios.get(API_URL + "api/portfolio/getAvailableStocks", { headers: {Authorization: `Bearer ${token}`} });
 };
@@ -62,8 +62,53 @@ const whoAmi = async () => {
     let response = await axios.get(API_URL + "api/blog/whoAmi", { headers: {Authorization: `Bearer ${token}`} });
     return response;
 };
+
+
+const getCurrentPortfolioByUserId = async (id) => {
+    let token = window.localStorage.getItem("token");
+    let response = await axios.get(API_URL + "api/portfolio/getCurrentPortfolioByUserId/"+id, { headers: {Authorization: `Bearer ${token}`} });
+    return response;
+};
+
+const getCurrentPortfolioByEmail = async (email) => {
+  let token = window.localStorage.getItem("token");
+  let response = await axios.get(API_URL + "api/portfolio/getCurrentPortfolioByEmail/"+email, { headers: {Authorization: `Bearer ${token}`} });
+  return response;
+};
+
+const addStockToPortfolio = async (stock,quantity) => {
+    let token = window.localStorage.getItem("token");
+    let response = await axios.post(API_URL + "api/portfolio/addStockToUserPortfolio", {stockSymbol: stock, "quantity": quantity}, { headers: {Authorization: `Bearer ${token}`} });
+    return response;
+};
+
+const deleteStockFromPortfolio = async (stock) => {
+    let token = window.localStorage.getItem("token");
+    let response = await axios.post(API_URL + "api/portfolio/removeStockFromUserPortfolio", {stockId: stock}, { headers: {Authorization: `Bearer ${token}`} });
+    return response;
+};
+
+const closeEntirePortfolioByUserId = async (id) => {
+    let token = window.localStorage.getItem("token");
+    let response = await axios.post(API_URL + "api/portfolio/closeEntirePortfolioByUserId/"+id, null, { headers: {Authorization: `Bearer ${token}`} });
+    return response;
+};
+
+const getRealizedGainByUserId = async (id) => {
+    let token = window.localStorage.getItem("token");
+    let response = await axios.get(API_URL + "api/portfolio/getRealizedGainByUserId/"+id, { headers: {Authorization: `Bearer ${token}`} });
+    return response;
+};
+
+const sendMail = (id) => {
+    let token = window.localStorage.getItem("token");
+    let response = axios.post(API_URL + "api/admin/sendMail/1"+id, null, { headers: {Authorization: `Bearer ${token}`} });
+    return response;
+};
+
+
 const postService = {
-  getAllPublicPosts,
+  getAvailableStocks,
   register,
   getAllPosts,
   likePost,
@@ -72,6 +117,13 @@ const postService = {
   login,
   logout,
   whoAmi,
+  getCurrentPortfolioByUserId,
+  getCurrentPortfolioByEmail,
+  addStockToPortfolio,
+  deleteStockFromPortfolio,
+  closeEntirePortfolioByUserId,
+  getRealizedGainByUserId,
+  sendMail,
 };
 
 export default postService;
