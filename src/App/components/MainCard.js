@@ -11,7 +11,8 @@ class MainCard extends Component {
         fullCard: false,
         collapseCard: false,
         loadCard: false,
-        cardRemove: false
+        cardRemove: false,
+        key: this.props.id,
     };
 
     cardReloadHandler = () => {
@@ -33,6 +34,8 @@ class MainCard extends Component {
         if (this.state.isOption) {
             cardHeaderRight = (
                 <div className="card-header-right">
+                <span ><i className="fa fa-thumbs-up f-22 m-r-10"/>{this.props.likes}</span>
+
                 </div>
             );
         }
@@ -40,6 +43,10 @@ class MainCard extends Component {
         cardHeader = (
             <Card.Header>
                 <Card.Title as='h5'>{this.props.title}</Card.Title>
+                {this.props.author? <i className="fa fa-user f-22 m-r-10"/>: null}
+                {this.props.author? <span className="text-muted">  {this.props.author}</span>: null}
+
+
                 {cardHeaderRight}
             </Card.Header>
         );

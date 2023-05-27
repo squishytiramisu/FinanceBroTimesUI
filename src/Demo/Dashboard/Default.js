@@ -26,7 +26,7 @@ const Dashboard = () => {
             (response) => {
                 console.log(response.data);
                 }
-        );
+        ).catch((error) => { console.log(error)});
       }, []);
 
         const tabContent = (

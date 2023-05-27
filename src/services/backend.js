@@ -20,12 +20,19 @@ const register = async (username, email, password) =>  {
     return response
 };
 
+const likePost = async (id) => {
+    let token = window.localStorage.getItem("token");
+    let response =  await axios.post(API_URL + "api/blog/toggleLike", {"blogPostId": id}, { headers: {Authorization: `Bearer ${token}`} });
+    return response;
+};
+
 
 
 const postService = {
   getAllPublicPosts,
   register,
-  getAllPosts
+  getAllPosts,
+  likePost
 };
 
 export default postService;
