@@ -26,13 +26,19 @@ const likePost = async (id) => {
     return response;
 };
 
+const addPost = async (title, content) => {
+    let token = window.localStorage.getItem("token");
+    let response = await axios.post(API_URL + "api/blog/addBlogPost", {"title": title, "content": content}, { headers: {Authorization: `Bearer ${token}`} });
+    return response;
+};
 
 
 const postService = {
   getAllPublicPosts,
   register,
   getAllPosts,
-  likePost
+  likePost,
+  addPost,
 };
 
 export default postService;
