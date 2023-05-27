@@ -61,6 +61,10 @@ const logout = async () => {
 const whoAmi = async () => {
     let token = window.localStorage.getItem("token");
     let response = await axios.get(API_URL + "api/blog/whoAmi", { headers: {Authorization: `Bearer ${token}`} });
+    await setTimeout(() => {}, 300);
+    window.localStorage.setItem("username", response.data.username);
+    window.localStorage.setItem("id", response.data.userId);
+    window.localStorage.setItem("email", response.data.email);
     return response;
 };
 

@@ -85,6 +85,7 @@ const Dashboard = () => {
 
         return (
             <Aux>
+                <h2 className='text-muted p-3'> Welcome back {window.localStorage.getItem("username")}! </h2>
                 <Row>
                     <Col md={6} xl={4}>
                         <Card>
@@ -92,7 +93,7 @@ const Dashboard = () => {
                                 <h6 className='mb-4'>Current Profit</h6>
                                 <div className="row d-flex align-items-center">
                                     <div className="col-9">
-                                        { realizedGains > 0 ? <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-arrow-up text-c-green f-30 m-r-5"/>${realizedGains} </h3> : <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-arrow-down text-c-red f-30 m-r-5"/>${realizedGains}</h3> }
+                                        { realizedGains > 0 ? <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-arrow-up text-c-green f-30 m-r-5"/>${Math.round(realizedGains)} </h3> : <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-arrow-down text-c-red f-30 m-r-5"/>${Math.round(realizedGains)} </h3> }
                                     </div>
                                 </div>
                                 <div className="progress m-t-30" style={{height: '7px'}}>
@@ -107,7 +108,7 @@ const Dashboard = () => {
                                 <h6 className='mb-4'>Total worth of portfolio</h6>
                                 <div className="row d-flex align-items-center">
                                     <div className="col-9">
-                                        <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-arrow-up text-c-green f-30 m-r-5"/> ${totalWorth} </h3>
+                                        <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-arrow-up text-c-green f-30 m-r-5"/> ${Math.round(totalWorth)} </h3>
                                     </div>
                                 </div>
                                 <div className="progress m-t-30" style={{height: '7px'}}>
@@ -131,7 +132,7 @@ const Dashboard = () => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={6} xl={8}>
+                    <Col md={8} xl={12}>
                         <Card className='Recent-Users'>
                             <Card.Header>
                                 <Card.Title as='h5'>Recent Posts</Card.Title>

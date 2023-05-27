@@ -20,14 +20,11 @@ const SignIn1 = () => {
                 PostService.whoAmi().then(
                     (response) => {
                         console.log(response.data);
-                        window.localStorage.setItem("username", response.data.username);
-                        window.localStorage.setItem("id", response.data.userId);
-                        window.localStorage.setItem("email", response.data.email);
+                        window.location.href = "/dashboard/default";
                     },(error) => {
                         console.log(error);
                     }
                 );
-                window.location.href = "/dashboard/default"
             },
             (error) => {
                 setError(true);
