@@ -114,6 +114,12 @@ const getAllStocksWithPrices = () => {
 };
 
 
+const getUnrealizedGainByUserId = async (id) => {
+    let token = window.localStorage.getItem("token");
+    let response = await axios.get(API_URL + "api/portfolio/getUnrealizedGainByUserId/"+id, { headers: {Authorization: `Bearer ${token}`} });
+    return response;
+};
+
 const postService = {
   getAvailableStocks,
   register,
@@ -131,7 +137,8 @@ const postService = {
   closeEntirePortfolioByUserId,
   getRealizedGainByUserId,
   sendMail,
-  getAllStocksWithPrices
+  getAllStocksWithPrices,
+  getUnrealizedGainByUserId
 
 };
 
