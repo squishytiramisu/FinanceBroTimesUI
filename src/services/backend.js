@@ -49,9 +49,15 @@ const deletePost = async (id) => {
 };
 
 const login = async (email, password) => {
-    let response = await axios.post(API_URL + "api/v1/auth/authenticate", { "email": email, "password": password });
-    window.localStorage.setItem("token", response.data.access_token);
-    window.localStorage.setItem("username", response.data.username);
+    let response;
+    try{
+        response = await axios.post(API_URL + "api/v1/auth/authenticate", { "email": email, "password": password });
+        window.localStorage.setItem("token", response.data.access_token);
+        window.localStorage.setItem("username", response.data.username);
+        await whoAmi();
+    }catch(e){
+        throw new Error();
+    }
     return response;
 };
 
