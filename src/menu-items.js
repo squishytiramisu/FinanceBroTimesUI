@@ -21,14 +21,14 @@ export default {
                     classes: 'nav-item',
                     icon: 'feather icon-sidebar'
                 },
-                {
-                    id: 'users-page',
-                    title: 'Finance Bros',
-                    type: 'item',
-                    url: '/users',
-                    classes: 'nav-item',
-                    icon: 'feather icon-users'
-                },
+                // {
+                //     id: 'users-page',
+                //     title: 'Finance Bros',
+                //     type: 'item',
+                //     url: '/users',
+                //     classes: 'nav-item',
+                //     icon: 'feather icon-users'
+                // },
             ]
         },
         {
@@ -50,6 +50,22 @@ export default {
                     type: 'item',
                     icon: 'feather icon-server',
                     url: '/tables/bootstrap'
+                }
+            ]
+        },
+        {
+            id: 'admin',
+            title: 'Admin',
+            type: 'group',
+            icon: 'icon-navigation',
+            children: [
+                {
+                    id: 'admin-page',
+                    title: 'Admin',
+                    type: 'item',
+                    url: '/admin',
+                    classes: 'nav-item',
+                    icon: 'feather icon-user-check'
                 }
             ]
         },
@@ -85,5 +101,6 @@ export default {
                 },
             ]
         }
+        
     ]
 }
