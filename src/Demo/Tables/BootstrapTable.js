@@ -22,6 +22,19 @@ const BootstrapTable = () =>{
         );
     }
 
+    const sellStock = (stockSymbol) => {
+        let quantity = document.getElementById(`i-quantity-${stockSymbol}`).value;
+        PostService.removeStockFromPortfolio(stockSymbol,quantity).then(
+            (response) => {
+                console.log(response.data);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+
+
     React.useEffect(() => {
 
         if(window.localStorage.getItem("username") === null){
@@ -70,6 +83,7 @@ const BootstrapTable = () =>{
                                             <td><bold>{stock.price}$</bold></td>
                                             <td>
                                                 <button className="btn btn-primary shadow-2 mb-4"  id={`i-name-${stock.stockSymbol}`} onClick={()=> buyStock(stock.stockSymbol)}>Buy</button>
+
                                                 <input type="number" id={`i-quantity-${stock.stockSymbol}`} className="form-control" placeholder="Amount"/>
                                             </td>
                                         </tr>

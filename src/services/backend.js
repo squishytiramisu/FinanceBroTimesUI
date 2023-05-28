@@ -35,6 +35,12 @@ const addPost = async (title, content) => {
     return response;
 };
 
+//TODO ezt atnezni azert
+const editPost = async (id, title, content) => {
+    let token = window.localStorage.getItem("token");
+    let response = await axios.post(API_URL + "api/blog/editBlogPost", { "blogPostId": id, "title": title, "content": content }, { headers: { Authorization: `Bearer ${token}` } });
+    return response;
+};
 
 const deletePost = async (id) => {
     let token = window.localStorage.getItem("token");
@@ -136,12 +142,30 @@ const giveModeratorRights = async (id) => {
     return response;
 };
 
+const getIsAdmin = async (id) => {
+    let token = window.localStorage.getItem("token");
+    let response = await axios.get(API_URL + "api/admin/isAdmin/" + id, { headers: { Authorization: `Bearer ${token}` } });
+    return response;
+};
+
+const adminCloseEntirePortfolioById = async (id) => {
+    let token = window.localStorage.getItem("token");
+    let response = await axios.post(API_URL + "/api/admin/closePortfolio/" + id, null, { headers: { Authorization: `Bearer ${token}` } });
+    return response;
+};
+
+const getIsModerator = async () => {
+    let token = window.localStorage.getItem("token");
+    let response = await axios.get(API_URL + "api/moderator/isModerator/", { headers: { Authorization: `Bearer ${token}` } });
+    return response;
+};
 const postService = {
     getAvailableStocks,
     register,
     getAllPosts,
     likePost,
     addPost,
+    editPost,
     deletePost,
     login,
     logout,
@@ -156,7 +180,10 @@ const postService = {
     getAllStocksWithPrices,
     getUnrealizedGainByUserId,
     giveAdminRights,
-    giveModeratorRights
+    giveModeratorRights,
+    getIsAdmin,
+    adminCloseEntirePortfolioById,
+    getIsModerator
 };
 
 export default postService;
