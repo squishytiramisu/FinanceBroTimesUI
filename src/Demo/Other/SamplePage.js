@@ -15,7 +15,7 @@ const SamplePage = () => {
 
     const [isModerator, setGetIsModerator] = useState(false);
 
-
+    const [edit,setEdit] = useState(null);
 
     const checkModeratorRole = () => {
             PostService.getIsModerator().then(
@@ -49,10 +49,56 @@ const SamplePage = () => {
     }
 
     const addPost = () => {
-        PostService.addPost(addPostInput.title, addPostInput.content).then(
+
+        if(edit == null){
+
+            
+            PostService.addPost(addPostInput.title, addPostInput.content).then(
+                (response) => {
+                    console.log(response.data);
+                    
+                    PostService.getAllPosts().then(
+                        (response) => {
+                            console.log(response.data);
+                            setPosts(response.data);
+                        },
+                        (error) => {
+                            console.log(error);
+                        }
+                        );
+                        setAddPostInput({ content: '', title: '' });
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                    );
+            
+            }else{
+                PostService.editPost(edit,addPostInput.title, addPostInput.content).then(
+                    (response) => {
+                        console.log(response.data);
+                        PostService.getAllPosts().then(
+                            (response) => {
+                                console.log(response.data);
+                                setPosts(response.data);
+                            },
+                            (error) => {
+                                console.log(error);
+                            }
+                        );
+                        setEdit(null);
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                );
+            }
+        }
+                
+    const deletePost = (id) => {
+        PostService.deletePost(id).then(
             (response) => {
                 console.log(response.data);
-
                 PostService.getAllPosts().then(
                     (response) => {
                         console.log(response.data);
@@ -62,7 +108,6 @@ const SamplePage = () => {
                         console.log(error);
                     }
                 );
-                setAddPostInput({ content: '', title: '' });
             },
             (error) => {
                 console.log(error);
@@ -70,8 +115,8 @@ const SamplePage = () => {
         );
     }
 
-    const deletePost = (id) => {
-        PostService.deletePost(id).then(
+    const editPost = (id) => {
+        PostService.editPost(id).then(
             (response) => {
                 console.log(response.data);
                 PostService.getAllPosts().then(
@@ -94,6 +139,7 @@ const SamplePage = () => {
         if (window.localStorage.getItem("token") === null) {
             window.location.href = "/auth/signin-1";
         }
+        PostService.whoAmi().then(
         PostService.getAllPosts().then(
             (response) => {
                 console.log(response.data);
@@ -103,7 +149,7 @@ const SamplePage = () => {
                 console.log(error);
                 window.location.href = "/auth/signin-1";
             }
-        );
+        ));
         checkModeratorRole();
 
     }, []);
@@ -112,7 +158,7 @@ const SamplePage = () => {
         <Aux>
             <Card>
                 <Card.Header>
-                    <Card.Title as="h5">Write a post</Card.Title>
+                    <Card.Title as="h5">{edit? "EDITING":"Write a post"}</Card.Title>
                 </Card.Header>
                 <Card.Body>
                     <Form>
@@ -124,7 +170,7 @@ const SamplePage = () => {
                             <Form.Label>Write your story...</Form.Label>
                             <Form.Control as="textarea" rows="3" value={addPostInput.content} onChange={(event) => setAddPostInput({ content: event.target.value, title: addPostInput.title })} />
                         </Form.Group>
-                        <Button variant="primary" onClick={() => addPost()}>Post</Button>
+                        <Button variant="primary" onClick={() => addPost()}>{edit? "Edit":"Post"}</Button>
                     </Form>
                 </Card.Body>
             </Card>
@@ -144,6 +190,8 @@ const SamplePage = () => {
                                         Like
                                     </Button>
                                     {post.author === window.localStorage.getItem("username") ? <Button size={'sm'} variant="btn btn-danger" onClick={() => deletePost(post.id)}> Delete </Button> : null}
+                                    {post.author === window.localStorage.getItem("username") ? <Button size={'sm'} variant="btn btn-primary" onClick={() => setEdit(post.id)}> Edit </Button> : null}
+                                    
                                     {/* ITT KELL MAJD A MODERATOR ROLE CHECK */}
                                     {isModerator == true && !(post.author === window.localStorage.getItem("username"))? <Button size={'sm'} variant="btn btn-danger" onClick={() => deletePost(post.id)}> Delete </Button> : null}
                                 </Card2>

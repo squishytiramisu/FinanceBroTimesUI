@@ -78,6 +78,7 @@ const ProfilePage = () => {
         if(window.localStorage.getItem("token") === null){
             window.location.href = "/auth/signin-1";
         }
+        PostService.whoAmi(
         PostService.getAllPosts().then(
             (response) => {
                 console.log(response.data);
@@ -87,7 +88,7 @@ const ProfilePage = () => {
                 console.log(error);
                 window.location.href = "/auth/signin-1";
             }
-        );
+        ));
     }, []);
 
     return (

@@ -150,13 +150,13 @@ const giveModeratorRights = async (id) => {
 
 const getIsAdmin = async (id) => {
     let token = window.localStorage.getItem("token");
-    let response = await axios.get(API_URL + "api/admin/isAdmin/" + id, { headers: { Authorization: `Bearer ${token}` } });
+    let response = await axios.get(API_URL + "api/admin/isAdmin", { headers: { Authorization: `Bearer ${token}` } });
     return response;
 };
 
 const adminCloseEntirePortfolioById = async (id) => {
     let token = window.localStorage.getItem("token");
-    let response = await axios.post(API_URL + "/api/admin/closePortfolio/" + id, null, { headers: { Authorization: `Bearer ${token}` } });
+    let response = await axios.post(API_URL + "/api/portfolio/closeEntirePortfolioByUserId/" + id, null, { headers: { Authorization: `Bearer ${token}` } });
     return response;
 };
 

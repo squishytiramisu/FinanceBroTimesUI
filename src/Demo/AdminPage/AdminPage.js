@@ -11,7 +11,7 @@ const AdminPage = () => {
     const [moderatorInput, setModeratorInput] = useState({ title: '', content: '' });
     const [mailInput, setMailInput] = useState({ title: '', content: '' });
     const [getIsAdmin, setGetIsAdmin] = useState(false);
-    const [adminCloseEntirePortfolioById, setAdminCloseEntirePortfolioById] = useState(false);
+    const [adminCloseEntirePortfolioById, setAdminCloseEntirePortfolioById] = useState(null);
 
     const [canShow, setCanShow] = useState(false);
 
@@ -49,7 +49,7 @@ const AdminPage = () => {
     }
 
     const closeEntirePortfolioById = (id) => {
-        PostService.closeEntirePortfolioById(id).then(
+        PostService.closeEntirePortfolioByUserId(id).then(
             (response) => {
                 console.log(response.data);
             },
@@ -115,9 +115,9 @@ const AdminPage = () => {
                             <Form>
                                 <Form.Group controlId="exampleForm.postTitle">
                                     <Form.Label>User ID to close portfolio:</Form.Label>
-                                    <Form.Control type="email" placeholder="User ID" value={adminCloseEntirePortfolioById.title} onChange={(event) => setAdminCloseEntirePortfolioById({ title: event.target.value, content: adminCloseEntirePortfolioById.content })} />
+                                    <Form.Control type="email" placeholder="User ID" value={adminCloseEntirePortfolioById} onChange={(event) => setAdminCloseEntirePortfolioById(event.target.value)} />
                                 </Form.Group>
-                                <Button variant="primary" onClick={() => closeEntirePortfolioById(adminCloseEntirePortfolioById.title)}>Send</Button>
+                                <Button variant="primary" onClick={() => closeEntirePortfolioById(adminCloseEntirePortfolioById)}>Send</Button>
                             </Form>
                         </Card.Body>
                     </Card>

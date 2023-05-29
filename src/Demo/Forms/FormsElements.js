@@ -15,6 +15,7 @@ const FullPortfolio = () => {
         if (window.localStorage.getItem("token") === null) {
             window.location.href = "/auth/signin-1";
         }
+        PostService.whoAmi(
         PostService.getCurrentPortfolioByUserId(window.localStorage.getItem('id')).then(
             (response) => {
                 console.log(response.data);
@@ -24,7 +25,7 @@ const FullPortfolio = () => {
                 console.log(error);
                 window.location.href = "/auth/signin-1";
             }
-        );
+        ));
     }, []);
 
     const sellPosition = async (id) => {
