@@ -11,7 +11,9 @@ import * as actionTypes from './../../../../store/actions';
 import navigation from '../../../../menu-items';
 
 class Navigation extends Component {
+    userIsAdmin = false;
 
+    
     resize = () => {
         const contentWidth = document.getElementById('root').clientWidth;
 
@@ -22,7 +24,7 @@ class Navigation extends Component {
 
     componentDidMount() {
         this.resize();
-        window.addEventListener('resize', this.resize)
+        window.addEventListener('resize', this.resize);
     }
 
     componentWillUnmount() {

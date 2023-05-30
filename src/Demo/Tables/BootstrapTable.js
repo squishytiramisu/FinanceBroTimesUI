@@ -40,20 +40,23 @@ const BootstrapTable = () => {
         if (window.localStorage.getItem("username") === null) {
             window.location.href = "/auth/signin-1"
         }
+        PostService.whoAmi().then(
 
-
-        PostService.getAllStocksWithPrices().then(
-            (response) => {
-                console.log(response.data);
-                setStocks(response.data);
-            },
-            (error) => {
-                console.log(error);
-                window.location.href = "/auth/signin-1"
-
-            }
-        );
-    }, []);
+            
+            
+            PostService.getAllStocksWithPrices().then(
+                (response) => {
+                    console.log(response.data);
+                    setStocks(response.data);
+                },
+                (error) => {
+                    console.log(error);
+                    window.location.href = "/auth/signin-1"
+                    
+                }
+                )
+                )
+            }, []);
 
 
     return (
